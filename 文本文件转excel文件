@@ -1,0 +1,604 @@
+package com.svail.batchprocessing;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.Vector;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import com.svail.crawl.crawldata.Poi_tidy_anjuke;
+import com.svail.util.FileTool;
+
+public class Txt_Excel {
+	public String TITLE;
+	public double lng = 0.0;
+	public double lat = 0.0;
+	public String DIRECTION = null;
+	public static Object INVALID_DEGREE;
+	public String TIME;
+	public String PRICE;
+	public String HOUSE_TYPE;
+	public String COMMUNITY;
+	public String ADDRESS;
+	public String PARTMENT;
+	public String AREA;
+	public String FLOOR;
+	public String DECORATION;
+	public String TRAFFIC;
+	public String URL;
+	public String date;
+	public String COORDINATE;
+	public String DEPOSIT;
+	public String RENT_TYPE;
+	public String PROPERTY_TYPE;
+	public String LOCATION;
+	public String SOURCE;
+	public String DOWN_PAYMENT;
+	public String UNIT_PRICE;
+	public String ORIENTATION;
+	public String FITMENT;
+	public String GENERAL_SITUATION;
+	public String infloor;
+	public String totalfloor;
+	public int roughcast;
+	public int Simple_decoration;
+	public int Fine_decoration;
+	public int Luxury_decoration;
+	public int Moderate_decoration;
+	public int south;
+	public int north;
+	public int east;
+	public int west;
+	public int south_north;
+	public int east_west;
+	public int west_south;
+	public int east_north;
+	public int west_north;
+	public int east_south;
+	public String DEVELOPER;
+	public String PROPERTY;
+	public String PROPERTY_FEE;
+	public String TOTAL_AREA;
+	public String BUILT_YEAR;
+	public String HOUSEHOLDS;
+	public String VOLUME_RATE;
+	public String PARK;
+	public String GREEN_RATE;
+	public Double LNG;
+	public Double LAT;
+	public static String Folder="D:/Crawldata_BeiJing/1123数据重新批量处理/58/newhouse/Process_Source/58_newhouse_3_result.txt";
+	public static void main(String argv[]) throws Exception{
+	    System.out.println("测试开始!");
+	    writeExcel();
+	    System.out.println("测试结束!");
+	   
+ }
+   public static void writeExcel() throws IOException{  
+        //创建一个Excel(or new XSSFWorkbook())  
+        Workbook wb = new HSSFWorkbook();  
+        //创建表格  
+        Sheet sheet = wb.createSheet("测试Sheet_01");  
+        //创建行  
+        Row row = sheet.createRow(0);  
+        //设置行高  
+        row.setHeightInPoints(30); 
+        Cell cell = row.createCell(0);
+        for(int i=0;i<=42;i++)
+        {
+        	switch(i){
+        	case 0:
+        		row.createCell(0).setCellValue("longitude");
+        		break;
+        	case 1:
+        		row.createCell(1).setCellValue("latitude");
+        		break;
+        	case 2:
+        		row.createCell(2).setCellValue("title");
+        		break;
+        	case 3:
+        		row.createCell(3).setCellValue("time");
+        		break;
+        	case 4:
+        		row.createCell(4).setCellValue("price");
+        		break;
+        	case 5:
+        		row.createCell(5).setCellValue("area");
+        		break;
+        	case 6:
+        		row.createCell(6).setCellValue("total_area");
+        		break;
+        	case 7:
+        		row.createCell(7).setCellValue("community");
+        		break;
+        	case 8:
+        		row.createCell(8).setCellValue("location");
+        		break;
+        	case 9:
+        		row.createCell(9).setCellValue("address");
+        		break;
+        	case 10:
+        		row.createCell(10).setCellValue("house_type");
+        		break;
+        	case 11:
+        		row.createCell(11).setCellValue("rent_type");
+        		break;
+        	case 12:
+        		row.createCell(12).setCellValue("floor");
+        		break;
+        	case 13:
+        		row.createCell(13).setCellValue("infloor");
+        		break;
+        	case 14:
+        		row.createCell(14).setCellValue("totalfloor");
+        		break;
+        	case 15:
+        		row.createCell(15).setCellValue("direction");
+        		break;
+        	case 16:
+        		row.createCell(16).setCellValue("south_north");
+        		break;
+        	case 17:
+        		row.createCell(17).setCellValue("south");
+        		break;
+        	case 18:
+        		row.createCell(18).setCellValue("east_south");
+        		break;
+        	case 19:
+        		row.createCell(19).setCellValue(" west_south");
+        		break;
+        	case 20:
+        		row.createCell(20).setCellValue("east");
+        		break;
+        	case 21:
+        		row.createCell(21).setCellValue("east_west");
+        		break;
+        	case 22:
+        		row.createCell(22).setCellValue("west");
+        		break;
+        	case 23:
+        		row.createCell(23).setCellValue("east_north");
+        		break;
+        	case 24:
+        		row.createCell(24).setCellValue("west_north");
+        		break;
+        	case 25:
+        		row.createCell(25).setCellValue("north");
+        		break;
+        	case 26:
+        		row.createCell(26).setCellValue("fitment");
+        		break;
+        	case 27:
+        		row.createCell(27).setCellValue("roughcast");
+        		break;
+        	case 28:
+        		row.createCell(28).setCellValue("simple_decoration");
+        		break;
+        	case 29:
+        		row.createCell(29).setCellValue("moderate_decoration");
+        		break;
+        	case 30:
+        		row.createCell(30).setCellValue("fine_decoration");
+        		break;
+        	case 31:
+        		row.createCell(31).setCellValue("luxury_decoration");
+        		break;
+        	case 32:
+        		row.createCell(32).setCellValue("property_type");
+        		break;
+        	case 33:
+        		row.createCell(33).setCellValue("developer");
+        		break;
+        	case 34:
+        		row.createCell(34).setCellValue("property_type");
+        		break;
+        	case 35:
+        		row.createCell(35).setCellValue("property_fee");
+        		break;
+        	case 36:
+        		row.createCell(36).setCellValue("biult_year");
+        		break;
+        	case 37:
+        		row.createCell(37).setCellValue("volume_rate");
+        		break;
+        	case 38:
+        		row.createCell(38).setCellValue("green_rate");
+        		break;
+        	case 39:
+        		row.createCell(39).setCellValue("households");
+        		break;
+        		
+        	case 40:
+        		row.createCell(40).setCellValue("park");
+        		break;
+        	case 41:
+        		row.createCell(41).setCellValue("traffic");
+        		break;
+        	case 42:
+        		row.createCell(42).setCellValue("url");
+        		break;
+        		
+        	
+        	}
+        }
+    //标题设置完毕,下面开始填充数据
+        Vector<String> rds = FileTool.Load(Folder,"UTF-8");
+        for(int i=0;i<rds.size();i++)
+        {
+        	String element=rds.elementAt(i);
+			Txt_Excel poi = new Txt_Excel(element);
+        	row = sheet.createRow(i+1); 
+        	for(int k=0;k<=42;k++)
+        	{
+        		switch(k){
+        		case 0:
+            		row.createCell(0).setCellValue(poi.LNG);
+            		break;
+            	case 1:
+            		row.createCell(1).setCellValue(poi.LAT);
+            		break;
+            	case 2:
+            		row.createCell(2).setCellValue(poi.TITLE);
+            		break;
+            	case 3:
+            		row.createCell(3).setCellValue(poi.TIME);
+            		break;
+            	case 4:
+            		row.createCell(4).setCellValue(poi.PRICE);
+            		break;
+            	case 5:
+            		row.createCell(5).setCellValue(poi.AREA);
+            		break;
+            	case 6:
+            		row.createCell(6).setCellValue(poi.TOTAL_AREA);
+            		break;
+            	case 7:
+            		row.createCell(7).setCellValue(poi.COMMUNITY);
+            		break;
+            	case 8:
+            		row.createCell(8).setCellValue(poi.LOCATION);
+            		break;
+            	case 9:
+            		row.createCell(9).setCellValue(poi.ADDRESS);
+            		break;
+            	case 10:
+            		row.createCell(10).setCellValue(poi.HOUSE_TYPE);
+            		break;
+            	case 11:
+            		row.createCell(11).setCellValue(poi.RENT_TYPE);
+            		break;
+            	case 12:
+            		row.createCell(12).setCellValue(poi.FLOOR);
+            		break;
+            	case 13:
+            		row.createCell(13).setCellValue(poi.infloor);
+            		break;
+            	case 14:
+            		row.createCell(14).setCellValue(poi.totalfloor);
+            		break;
+            	case 15:
+            		row.createCell(15).setCellValue(poi.ORIENTATION);
+            		break;
+            	case 16:
+            		row.createCell(16).setCellValue(poi.south_north);
+            		break;
+            	case 17:
+            		row.createCell(17).setCellValue(poi.south);
+            		break;
+            	case 18:
+            		row.createCell(18).setCellValue(poi.east_south);
+            		break;
+            	case 19:
+            		row.createCell(19).setCellValue(poi.west_south);
+            		break;
+            	case 20:
+            		row.createCell(20).setCellValue(poi.east);
+            		break;
+            	case 21:
+            		row.createCell(21).setCellValue(poi.east_west);
+            		break;
+            	case 22:
+            		row.createCell(22).setCellValue(poi.west);
+            		break;
+            	case 23:
+            		row.createCell(23).setCellValue(poi.east_north);
+            		break;
+            	case 24:
+            		row.createCell(24).setCellValue(poi.west_north);
+            		break;
+            	case 25:
+            		row.createCell(25).setCellValue(poi.north);
+            		break;
+            	case 26:
+            		row.createCell(26).setCellValue(poi.FITMENT);
+            		break;
+            	case 27:
+            		row.createCell(27).setCellValue(poi.roughcast);
+            		break;
+            	case 28:
+            		row.createCell(28).setCellValue(poi.Simple_decoration);
+            		break;
+            	case 29:
+            		row.createCell(29).setCellValue(poi.Moderate_decoration);
+            		break;
+            	case 30:
+            		row.createCell(30).setCellValue(poi.Fine_decoration);
+            		break;
+            	case 31:
+            		row.createCell(31).setCellValue(poi.Luxury_decoration);
+            		break;
+            	case 32:
+            		row.createCell(32).setCellValue(poi.PROPERTY_TYPE);
+            		break;
+            	case 33:
+            		row.createCell(33).setCellValue(poi.DEVELOPER);
+            		break;
+            	case 34:
+            		row.createCell(34).setCellValue(poi.PROPERTY_TYPE);
+            		break;
+            	case 35:
+            		row.createCell(35).setCellValue(poi.PROPERTY_FEE);
+            		break;
+            	case 36:
+            		row.createCell(36).setCellValue(poi.BUILT_YEAR);
+            		break;
+            	case 37:
+            		row.createCell(37).setCellValue(poi.VOLUME_RATE);
+            		break;
+            	case 38:
+            		row.createCell(38).setCellValue(poi.GREEN_RATE);
+            		break;
+            	case 39:
+            		row.createCell(39).setCellValue(poi.HOUSEHOLDS);
+            		break;
+            		
+            	case 40:
+            		row.createCell(40).setCellValue(poi.PARK);
+            		break;
+            	case 41:
+            		row.createCell(41).setCellValue(poi.TRAFFIC);
+            		break;
+            	case 42:
+            		row.createCell(42).setCellValue(poi.URL);
+            		break;
+            	}
+        		
+        	}
+        	
+            
+        }   
+        FileOutputStream fos = new FileOutputStream(Folder.replace(".txt", "")+"_excel.csv");  
+        wb.write(fos);  
+        if(null != fos){  
+            fos.close();  
+        }  
+    }
+	Txt_Excel(String line) throws IOException
+	{
+		try{
+			if(line.indexOf("<COORDINATE>")!=-1)
+			{
+			     COORDINATE=getStrByKey(line,"<COORDINATE>","</COORDINATE>");
+			     if (COORDINATE !=null)
+					{
+						String[] coordinate=COORDINATE.split(";");
+						LNG=Double.parseDouble(coordinate[0]);
+						LAT=Double.parseDouble(coordinate[1]);
+						
+					}
+			}
+			else
+			{
+				System.out.println("坐标值为空!");
+			    write_append(line,Folder+"problem_poi.txt");
+			}
+			 if(line.indexOf("<TITLE>")!=-1)
+		     TITLE=getStrByKey(line,"<TITLE>","</TITLE>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 if(line.indexOf("<TIME>")!=-1)
+			 TIME=getStrByKey(line,"<TIME>","</TIME>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 if(line.indexOf("<PRICE>")!=-1)
+			 PRICE= getStrByKey(line,"<PRICE>","</PRICE>").replace("[面议]","").replace("[押一付三]","").replace("元/月","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 if(line.indexOf("<COMMUNITY>")!=-1)
+			 COMMUNITY=getStrByKey(line,"<COMMUNITY>","</COMMUNITY>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 if(line.indexOf("<LOCATION>")!=-1)
+			 LOCATION=getStrByKey(line,"<LOCATION>","</LOCATION>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 if(line.indexOf("<ADDRESS>")!=-1)
+			 ADDRESS=getStrByKey(line,"<ADDRESS>","</ADDRESS>").replace("(地图)","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 if(line.indexOf("<DEVELOPER>")!=-1)
+			 DEVELOPER=getStrByKey(line,"<DEVELOPER>","</DEVELOPER>").replace("(地图)","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");	
+			 if(line.indexOf("<PROPERTY>")!=-1)
+			 PROPERTY=getStrByKey(line,"<PROPERTY>","</PROPERTY>").replace("(地图)","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");	
+			 if(line.indexOf("<PROPERTY_FEE>")!=-1)
+			 PROPERTY_FEE=getStrByKey(line,"<PROPERTY_FEE>","</PROPERTY_FEE>").replace("(地图)","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");				 	 
+			 if(line.indexOf("<TOTAL_AREA>")!=-1)
+			 TOTAL_AREA=getStrByKey(line,"<TOTAL_AREA>","</TOTAL_AREA>").replace("(小型小区)","").replace("(中型小区)","").replace("(大型小区)","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");				 	 
+			 if(line.indexOf("<HOUSEHOLDS>")!=-1)
+			 HOUSEHOLDS=getStrByKey(line,"<HOUSEHOLDS>","</HOUSEHOLDS>").replace("户","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");				 	 
+			 if(line.indexOf("<BUILT_YEAR>")!=-1)
+			 BUILT_YEAR=getStrByKey(line,"<BUILT_YEAR>","</BUILT_YEAR>").replace("户","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");				 	 
+			 if(line.indexOf("<VOLUME_RATE>")!=-1)
+			 VOLUME_RATE=getStrByKey(line,"<VOLUME_RATE>","</VOLUME_RATE>").replace("户","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");				 	 
+			 if(line.indexOf("<PARK>")!=-1)
+			 PARK=getStrByKey(line,"<PARK>","</PARK>").replace("户","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");				 	 
+			 if(line.indexOf("<GREEN_RATE>")!=-1)
+			 GREEN_RATE=getStrByKey(line,"<GREEN_RATE>","</GREEN_RATE>").replace("户","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");				 	 
+			 if(line.indexOf("<HOUSE_TYPE>")!=-1) 
+			 HOUSE_TYPE=getStrByKey(line,"<HOUSE_TYPE>","</HOUSE_TYPE>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 if(line.indexOf("<RENT_TYPE>")!=-1)
+			 RENT_TYPE=getStrByKey(line,"<RENT_TYPE>","</RENT_TYPE>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 //HOUSE_AREA
+			 if(line.indexOf("<HOUSE_AREA>")!=-1&&line.indexOf("小区")==-1)
+			 {
+			   AREA=getStrByKey(line,"<HOUSE_AREA>","</HOUSE_AREA>").replace("平米","").replace("平方米","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			 }
+			 if(line.indexOf("<ORIENTATION>")!=-1)
+			 {
+				 
+				 ORIENTATION=getStrByKey(line,"<ORIENTATION>","</ORIENTATION>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";",""); 
+				 if(ORIENTATION.equals("南北"))
+				 {
+					 south_north=10; 
+				 }
+				
+				 if(ORIENTATION.equals("南"))
+				 {
+					 south=9; 
+				 }
+				
+				 if(ORIENTATION.equals("东南"))
+				 {
+					 east_south=8;
+				 }
+				
+				 if(ORIENTATION.equals("西南"))
+				 {
+					 west_south=7;
+				 }
+				
+				 if(ORIENTATION.equals("东"))
+				 {
+					 east=6; 
+				 }
+				 
+				 if(ORIENTATION.equals("东西"))
+				 {
+					 east_west=5; 
+				 }
+				 
+				 if(ORIENTATION.equals("西"))
+				 {
+					 west=4; 
+				 }
+				 ;
+				 if(ORIENTATION.equals("东北"))
+				 {
+					 east_north=3; 
+				 }
+				 
+				 if(ORIENTATION.equals("西北"))
+				 {
+					 west_north=2;
+				 }
+				 
+				 if(ORIENTATION.equals("北"))
+				 {
+					 north=1; 
+				 }
+			 }
+			 if(line.indexOf("<FLOOR>")!=-1)
+			 {
+			    FLOOR=getStrByKey(line,"<FLOOR>","</FLOOR>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+			    if(FLOOR.indexOf("/")!=-1)
+			   {
+			    // FLOOR=FLOOR.replace("/","//");
+			     infloor=FLOOR.substring(0, FLOOR.indexOf("/")).replace("/", "").replace("层", "");
+			     totalfloor=FLOOR.substring(FLOOR.indexOf("/")).replace("/", "").replace("层", "");
+			   }
+			 }
+			 if(line.indexOf("FITMENT")!=-1)
+			 {
+				 FITMENT=getStrByKey(line,"<FITMENT>","</FITMENT>").replace("　","").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+				 if(FITMENT.equals("毛坯"))
+				 {
+					roughcast=-1;
+				 }
+				 if(FITMENT.equals("简单装修")||FITMENT.equals("简装修")||FITMENT.equals("普通装修"))//
+				 {
+					 Simple_decoration=1;
+				 }
+				 if(FITMENT.equals("中等装修")||FITMENT.equals("中装修"))
+				 {
+					 Moderate_decoration=2;
+				 }
+				 if(FITMENT.equals("精装修"))
+				 {
+					 Fine_decoration=3;
+				 }
+				 if(FITMENT.equals("豪华装修"))
+				 {
+					 Luxury_decoration=4;
+				 }
+				 
+			 }
+			if(line.indexOf("<PROPERTY_TYPE>")!=-1)
+			PROPERTY_TYPE=getStrByKey(line,"<PROPERTY_TYPE>","</PROPERTY_TYPE>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");	
+			if(line.indexOf("<TRAFFIC>")!=-1)
+			TRAFFIC=getStrByKey(line,"<TRAFFIC>","</TRAFFIC>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");	
+			URL=getStrByKey(line,"<URL>","</URL>").replace("&nbsp;", "").replace("&amp;","").replace("nb;","").replace("nbsp","").replace("|","").replace(";","");
+		}catch (NullPointerException e) {
+			
+		     e.printStackTrace();
+			 System.out.println(e.getMessage());
+			 write_append(line,Folder.replace(".txt", "")+"_exception.txt");	
+		}
+			 	 
+	}
+
+	//提取每个标签里的内容
+	public static String getStrByKey(String sContent, String sStart, String sEnd) {
+		String sOut ="";
+		int fromIndex = 0;
+		int iBegin = 0;
+		int iEnd = 0;
+		int iStart=sContent.indexOf("</POI>");
+		String temp=" ";
+		if (iStart < 0) {
+		  return null;
+		  }
+		for (int i = 0; i < iStart; i++) {
+		  // 找出某位置，并找出该位置后的最近的一个匹配
+		  iBegin = sContent.indexOf(sStart, fromIndex);
+		  if (iBegin >= 0) 
+		  {
+		    iEnd = sContent.indexOf(sEnd, iBegin + sStart.length());
+		    if (iEnd <= iBegin)
+		    {
+		      return null;
+		    }
+		  }
+		  else 
+		  {
+				return sOut;
+		  }
+          if (iEnd > 0&&iEnd!=iBegin + sStart.length())
+          {
+		   sOut += sContent.substring(iBegin + sStart.length(), iEnd);
+		  }
+          else
+        	  return temp;
+		  if (iEnd > 0) 
+		  {
+		   fromIndex = iEnd + sEnd.length();
+		  }
+		}
+		  return sOut;
+	}
+	public static void write_append(String line,String pathname)  throws IOException
+	{
+		try
+		{
+		
+          File writefile=new File(pathname);
+          if(!writefile.exists())
+          {
+        	  writefile.createNewFile();
+          }
+          OutputStreamWriter write = new OutputStreamWriter(new FileOutputStream(writefile,true),"UTF-8");
+          BufferedWriter writer = new BufferedWriter(write);
+          writer.write(line);
+          writer.write("\r\n"); 
+          writer.close();
+          }catch(Exception e) {
+			e.printStackTrace();
+		
+		}	
+	}
+
+
+}
